@@ -1,23 +1,13 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-
 import { AppComponent } from './app.component';
-
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { TableListComponent } from './table-list/table-list.component';
-import { TypographyComponent } from './typography/typography.component';
-import { IconsComponent } from './icons/icons.component';
-import { MapsComponent } from './maps/maps.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { UpgradeComponent } from './upgrade/upgrade.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
     AgmCoreModule
 } from '@agm/core';
@@ -29,6 +19,7 @@ import { firebaseConfig } from './firebaseConfig';
     imports: [
         AngularFireModule.initializeApp(firebaseConfig),
         BrowserAnimationsModule,
+        NgbModule,
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
@@ -44,6 +35,9 @@ import { firebaseConfig } from './firebaseConfig';
         AdminLayoutComponent,
 
     ],
+
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+
     providers: [],
     bootstrap: [AppComponent]
 })
