@@ -66,8 +66,8 @@ export class CadastroDeProdutosComponent implements OnInit {
                     text: "Produto será cadastrado na sua base de dados!",
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'Sim!',
-                    cancelButtonText: 'Não!',
+                    confirmButtonText: 'Sim',
+                    cancelButtonText: 'Não',
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -81,6 +81,7 @@ export class CadastroDeProdutosComponent implements OnInit {
                         let dados =
                             [{
                                 "unidade": 'Comércio Zeus',
+                                "codigoDeBarras": '',
                                 "imagem": '',
                                 "categoria": this.categoria,
                                 "descricao": this.descricao,
@@ -91,6 +92,10 @@ export class CadastroDeProdutosComponent implements OnInit {
                                 "valorDeVenda": this.valorVenda
 
                             }];
+
+                        console.log('aquii');
+                        console.log(dados[0]);
+
 
                         this.firebaseService.registerProduct(dados[0]);
 
