@@ -12,6 +12,21 @@ export class FirebaseService {
         private angularFire: AngularFireAuth,
     ) { }
 
+
+    /**
+     * *---------------> FIREBASE PRODUTOS <---------------------
+     */
+    findAllCategorias() {
+        return this.firestore
+            .collection("Zeus " + "_Categorias", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+    registerProduct(dados: any) {
+        return this.firestore.collection("Zeus " + "_Produtos").add(dados);
+    }
+
+
     /**
      * *---------------> FIREBASE USUÁRIOS <---------------------
      */
