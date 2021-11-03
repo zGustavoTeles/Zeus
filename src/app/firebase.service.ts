@@ -22,6 +22,12 @@ export class FirebaseService {
             .valueChanges();
     }
 
+    findAllProducts(unidade: any) {
+        return this.firestore
+            .collection("Zeus " + "_Produtos", (ref) => ref.where("unidade", "==", unidade))
+            .snapshotChanges();
+    }
+
     registerProduct(dados: any) {
         return this.firestore.collection("Zeus " + "_Produtos").add(dados);
     }

@@ -14,6 +14,8 @@ import {
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AngularFireModule } from '@angular/fire';
 import { firebaseConfig } from './firebaseConfig';
+import { BrowserModule } from '@angular/platform-browser';
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
     imports: [
@@ -22,8 +24,10 @@ import { firebaseConfig } from './firebaseConfig';
         NgbModule,
         FormsModule,
         ReactiveFormsModule,
+        BrowserModule,
         HttpClientModule,
         ComponentsModule,
+        AvatarModule,
         RouterModule,
         AppRoutingModule,
         AgmCoreModule.forRoot({

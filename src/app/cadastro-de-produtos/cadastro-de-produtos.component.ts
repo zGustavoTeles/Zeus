@@ -15,6 +15,7 @@ export class CadastroDeProdutosComponent implements OnInit {
 
     public imagem: any;
     public categoria: any;
+    public codigoDeBarras: any;
     public descricao: any;
     public marca: any;
     public quantidade: any;
@@ -81,8 +82,8 @@ export class CadastroDeProdutosComponent implements OnInit {
                         let dados =
                             [{
                                 "unidade": 'Comércio Zeus',
-                                "codigoDeBarras": '',
-                                "imagem": '',
+                                "codigoDeBarras": this.codigoDeBarras,
+                                "imagem": this.imagem,
                                 "categoria": this.categoria,
                                 "descricao": this.descricao,
                                 "marca": this.marca,
@@ -93,14 +94,11 @@ export class CadastroDeProdutosComponent implements OnInit {
 
                             }];
 
-                        console.log('aquii');
-                        console.log(dados[0]);
-
-
                         this.firebaseService.registerProduct(dados[0]);
 
                         this.imagem = '';
                         this.categoria = '';
+                        this.codigoDeBarras = '';
                         this.descricao = '';
                         this.quantidade = '';
                         this.comissao = '';

@@ -11,18 +11,20 @@
                         <form #form="ngForm" (ngSubmit)="registerProduct(form)">
                             <div class="row">
 
-                                <!-- <div class="col-md-3">
-                                    <mat-form-field class="example-full-width"> -->
-                                <!-- Imagem do Produto-->
-                                <!-- <label class="label">
-                                                <input id="uploadPhoto" type="file" accept="image/*"
-                                                    style="display: none" (change)="touchCapturandoImg($event)" />
-                                                <img *ngIf="imagem === '' "
-                                                    src="\assets\img\produto-sem-imagem-cadastro.png" alt="avatar">
-                                                <img *ngIf="imagem != '' " src="{{imagem}}" alt="avatar">
-                                            </label> -->
-                                <!-- </mat-form-field>
-                                </div> -->
+                                <div class="col-md-3">
+                                    <mat-label class="col-md-3">
+                                        <label class="label">
+                                            <input id="uploadPhoto" type="file" accept="image/*" style="display: none"
+                                                (change)="touchCapturandoImg($event)" />
+
+                                            <ngx-avatar *ngIf="imagem === '' " src="\assets\img\sem-imagem.png"
+                                                size="100">
+                                            </ngx-avatar>
+                                            <ngx-avatar *ngIf="imagem != '' " src="{{imagem}}" size="100">
+                                            </ngx-avatar>
+                                        </label>
+                                    </mat-label>
+                                </div>
 
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
@@ -33,6 +35,13 @@
                                                 {{categoria.descricao}}
                                             </mat-option>
                                         </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Código de Barras" [(ngModel)]="codigoDeBarras"
+                                            required>
                                     </mat-form-field>
                                 </div>
 
