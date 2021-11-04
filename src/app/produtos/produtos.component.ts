@@ -20,29 +20,22 @@ export class ProdutosComponent implements OnInit {
 
     async ngOnInit() {
         this.unidade = 'Comércio Zeus';
-    }
-
-    async ionViewDidEnter() {
         this.findAllProducts();
         console.log('aqwuuiii');
         console.log(this.produtos);
     }
 
     public async findAllProducts() {
+        this.produtos = [];
+        this.quantidade = 0;
+        this.produtosAux = [];
+
         this.firebaseService.findAllProducts(this.unidade).subscribe(data => {
-            this.produtos = [];
-            this.quantidade = 0;
-            data.forEach(row => {
-                this.produtosAux = [];
-                let line = Object(row.payload.doc.data());
-                line.doc = String(row.payload.doc.id);
-                this.produtosAux.push(line);
-                for (let produto of this.produtosAux) {
-                    this.produtos.push(produto);
-                    this.quantidade += 1;
-                }
-            });
+            this.produtosAux = data;
+            for (let produto of this.produtosAux) {
+                this.produtos.push(produto);
+                this.quantidade += 1;
+            }
         });
     }
-
 }

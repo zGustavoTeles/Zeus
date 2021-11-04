@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from 'app/firebase.service';
 import * as Chartist from 'chartist';
 
 @Component({
@@ -8,65 +9,36 @@ import * as Chartist from 'chartist';
 })
 export class DashboardComponent implements OnInit {
 
-    cards = [
-        {
-            title: 'Card Title 1',
-            description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-            buttonText: 'Button',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-        },
-        {
-            title: 'Card Title 2',
-            description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-            buttonText: 'Button',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-        },
-        {
-            title: 'Card Title 3',
-            description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-            buttonText: 'Button',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-        },
-        {
-            title: 'Card Title 4',
-            description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-            buttonText: 'Button',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-        },
-        {
-            title: 'Card Title 5',
-            description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-            buttonText: 'Button',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-        },
-        {
-            title: 'Card Title 6',
-            description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-            buttonText: 'Button',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-        },
-        {
-            title: 'Card Title 7',
-            description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-            buttonText: 'Button',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-        },
-        {
-            title: 'Card Title 8',
-            description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-            buttonText: 'Button',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-        },
-        {
-            title: 'Card Title 9',
-            description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-            buttonText: 'Button',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-        },
-    ];
-    slides: any = [[]];
+    public produtos: any = [];
+    public produtosAux: any = [];
+    public produto: any;
 
-    constructor() { }
+    public quantidade: any = 0;
+
+    public unidade: any;
+
+    constructor(private firebaseService: FirebaseService) { }
+    ngOnInit(): void {
+        this.unidade = 'Comércio Zeus';
+        this.findAllProducts();
+        console.log('aqwuuiii');
+        console.log(this.produtos);
+    }
+
+    public async findAllProducts() {
+        this.produtos = [];
+        this.quantidade = 0;
+        this.produtosAux = [];
+
+        this.firebaseService.findAllProducts(this.unidade).subscribe(data => {
+            this.produtosAux = data;
+            for (let produto of this.produtosAux) {
+                this.produtos.push(produto);
+                this.quantidade += 1;
+            }
+        });
+    }
+
     startAnimationForLineChart(chart) {
         let seq: any, delays: any, durations: any;
         seq = 0;
@@ -131,87 +103,4 @@ export class DashboardComponent implements OnInit {
         }
         return R;
     }
-    ngOnInit() {
-        /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
-        this.slides = this.chunk(this.cards, 3);
-
-        const dataDailySalesChart: any = {
-            labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-            series: [
-                [12, 17, 7, 17, 23, 18, 38]
-            ]
-        };
-
-        const optionsDailySalesChart: any = {
-            lineSmooth: Chartist.Interpolation.cardinal({
-                tension: 0
-            }),
-            low: 0,
-            high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-            chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
-        }
-
-        var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
-
-        this.startAnimationForLineChart(dailySalesChart);
-
-
-        /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
-
-        const dataCompletedTasksChart: any = {
-            labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-            series: [
-                [230, 750, 450, 300, 280, 240, 200, 190]
-            ]
-        };
-
-        const optionsCompletedTasksChart: any = {
-            lineSmooth: Chartist.Interpolation.cardinal({
-                tension: 0
-            }),
-            low: 0,
-            high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-            chartPadding: { top: 0, right: 0, bottom: 0, left: 0 }
-        }
-
-        var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
-
-        // start animation for the Completed Tasks Chart - Line Chart
-        this.startAnimationForLineChart(completedTasksChart);
-
-
-
-        /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
-
-        var datawebsiteViewsChart = {
-            labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-            series: [
-                [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-
-            ]
-        };
-        var optionswebsiteViewsChart = {
-            axisX: {
-                showGrid: false
-            },
-            low: 0,
-            high: 1000,
-            chartPadding: { top: 0, right: 5, bottom: 0, left: 0 }
-        };
-        var responsiveOptions: any[] = [
-            ['screen and (max-width: 640px)', {
-                seriesBarDistance: 5,
-                axisX: {
-                    labelInterpolationFnc: function (value) {
-                        return value[0];
-                    }
-                }
-            }]
-        ];
-        var websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
-
-        //start animation for the Emails Subscription Chart
-        this.startAnimationForBarChart(websiteViewsChart);
-    }
-
 }

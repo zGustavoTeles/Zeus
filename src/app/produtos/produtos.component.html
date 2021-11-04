@@ -1,51 +1,55 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Listagem de Produtos</h4>
-                        <p class="card-category">Produtos com ofertas especiais!</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th>
-                                        Nome
-                                    </th>
-                                    <th>
-                                        Categoria
-                                    </th>
-                                    <th>
-                                        Marca
-                                    </th>
-                                    <th>
-                                        Valor
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let produto of produtos">
-                                        <td>
-                                            {{produto.descricao}}
-                                        </td>
-                                        <td>
-                                            {{produto.categoria}}
-                                        </td>
-                                        <td>
-                                            {{produto.marca}}
-                                        </td>
-                                        <td class="text-primary">
-                                            {{produto.valorDeVenda}}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+
+
+        <section style="background-color: #eee;">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-12 col-lg-4 mb-4 mb-lg-0" *ngFor="let produto of produtos">
+                        <div class="card">
+                            <div class="d-flex justify-content-between p-3">
+                                <p class="lead mb-0">{{produto.descricao}}</p>
+                                <div class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                                    style="width: 35px; height: 35px;">
+                                    <p class="text-white mb-0 small">x4</p>
+                                </div>
+                            </div>
+
+                            <img *ngIf="produto.imagem != '' " src="{{produto.imagem}}" class="card-img-top"
+                                alt="imagem"/>
+
+                            <img *ngIf="produto.imagem === '' " src="\assets\img\sem-imagem.png" class="card-img-top"
+                                alt="imagem"/>
+
+
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <p class="small"><a href="#!" class="text-muted">{{produto.descricao}}</a></p>
+                                    <p class="small text-danger"><s>{{produto.valorDeVenda | currency:'BRL'}}</s></p>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5 class="mb-0">{{produto.categoria}}</h5>
+                                    <h5 class="text-dark mb-0">{{produto.valorDeVenda | currency:'BRL'}}</h5>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-2">
+                                    <p class="text-muted mb-0">Comprar: <span
+                                            class="fw-bold">{{produto.quantidade}}</span></p>
+                                    <div class="ms-auto text-warning">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-        </div>
     </div>
 </div>

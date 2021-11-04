@@ -82,6 +82,7 @@ export class CadastroDeProdutosComponent implements OnInit {
                         let dados =
                             [{
                                 "unidade": 'Comércio Zeus',
+                                "documento": '',
                                 "codigoDeBarras": this.codigoDeBarras,
                                 "imagem": this.imagem,
                                 "categoria": this.categoria,

@@ -25,11 +25,34 @@ export class FirebaseService {
     findAllProducts(unidade: any) {
         return this.firestore
             .collection("Zeus " + "_Produtos", (ref) => ref.where("unidade", "==", unidade))
-            .snapshotChanges();
+            .valueChanges();
     }
 
-    registerProduct(dados: any) {
-        return this.firestore.collection("Zeus " + "_Produtos").add(dados);
+    async registerProduct(dados: any): Promise<any> {
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                this.firestore.collection("Zeus " + "_Produtos").add(dados).then(async data => {
+                    let dadosProdutos =
+                        [{
+                            "documento": data.id
+                        }];
+                    this.updateProducts(data.id, dadosProdutos[0]);
+                    resolve(data.id);
+                }, err => {
+                    reject(err);
+                    console.log('Erro', err);
+                });
+            } catch (err) {
+
+            }
+        });
+        return promise.then(res => {
+            console.log('Retorno ', res);
+        });
+    }
+
+    async updateProducts(documento: any, dados: any) {
+        this.firestore.doc('Zeus ' + '_Produtos' + '/' + documento).update(dados);
     }
 
 
