@@ -16,6 +16,7 @@ import { AngularFireModule } from '@angular/fire';
 import { firebaseConfig } from './firebaseConfig';
 import { BrowserModule } from '@angular/platform-browser';
 import { AvatarModule } from 'ngx-avatar';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import { AvatarModule } from 'ngx-avatar';
         BrowserModule,
         HttpClientModule,
         ComponentsModule,
+        NgxPaginationModule,
         AvatarModule,
         RouterModule,
         AppRoutingModule,

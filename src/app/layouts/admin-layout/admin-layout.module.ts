@@ -21,6 +21,7 @@ import { CadastroDeProdutosComponent } from 'app/cadastro-de-produtos/cadastro-d
 import { AvatarModule } from 'ngx-avatar';
 import { AppComponent } from 'app/app.component';
 import { ProdutosComponent } from 'app/produtos/produtos.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     imports: [
@@ -35,6 +36,7 @@ import { ProdutosComponent } from 'app/produtos/produtos.component';
         AvatarModule,
         MatSelectModule,
         MatTooltipModule,
+        NgxPaginationModule,
     ],
     declarations: [
         DashboardComponent,

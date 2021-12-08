@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
     public produtos: any = [];
     public produtosAux: any = [];
     public produto: any;
-
+    public paginaAtual = 1;
     public quantidade: any = 0;
 
     public unidade: any;
