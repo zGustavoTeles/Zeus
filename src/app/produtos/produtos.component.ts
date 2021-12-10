@@ -10,6 +10,9 @@ export class ProdutosComponent implements OnInit {
 
     public produtos: any = [];
     public produtosAux: any = [];
+    public formasDePagamento: any = [];
+    public formasDePagamentoAux: any = [];
+    public formaDePagamento: any;
     public produto: any;
     public paginaAtual = 1;
     public quantidade: any = 0;
@@ -20,9 +23,12 @@ export class ProdutosComponent implements OnInit {
 
     async ngOnInit() {
         this.unidade = 'Comércio Zeus';
-        this.findAllProducts();
-        console.log('aqwuuiii');
-        console.log(this.produtos);
+        await this.findAllProducts();
+        await this.findAllFormasPagamento();
+        console.log('aquuii');
+        console.log(this.formasDePagamento);
+        
+        
     }
 
     public async findAllProducts() {
@@ -35,6 +41,18 @@ export class ProdutosComponent implements OnInit {
             for (let produto of this.produtosAux) {
                 this.produtos.push(produto);
                 this.quantidade += 1;
+            }
+        });
+    }
+
+    public async findAllFormasPagamento() {
+        this.formasDePagamento = [];
+        this.formasDePagamentoAux = [];
+
+        this.firebaseService.findAllFormasPagamento().subscribe(data => {
+            this.formasDePagamentoAux = data;
+            for (let formaDePagamento of this.formasDePagamentoAux) {
+                this.formasDePagamento.push(formaDePagamento);
             }
         });
     }

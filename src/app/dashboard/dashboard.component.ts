@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'app/firebase.service';
 import * as Chartist from 'chartist';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-dashboard',
@@ -102,5 +103,71 @@ export class DashboardComponent implements OnInit {
             R.push(arr.slice(i, i + chunkSize));
         }
         return R;
+    }
+
+    public async addProductCarrinho(produto: any) {
+
+        try {
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Deseja Adicionar esse Produto no carrinho?',
+                text: "Produto será inserido no Carrinho!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sim',
+                cancelButtonText: 'Não',
+                reverseButtons: true
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+
+
+                    let dados =
+                        [{
+                            "unidade": produto.unidade,
+                            "documento": '',
+                            "documentoProduto": produto.documento,
+                            "codigoDeBarras": produto.codigoDeBarras,
+                            "imagem": produto.imagem,
+                            "categoria": produto.categoria,
+                            "descricao": produto.descricao,
+                            "marca": produto.marca,
+                            "quantidade": produto.quantidade,
+                            "comissao": produto.comissao,
+                            "valorDeCusto": produto.valorCusto,
+                            "valorDeVenda": produto.valorVenda
+
+                        }];
+
+                    this.firebaseService.registerProductCarrinhoTemp(dados[0]);
+
+                    swalWithBootstrapButtons.fire(
+                        'Parabéns!',
+                        'Produto Adicionado com Sucesso! :)',
+                        'success'
+                    )
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Oops...',
+                        'Não foi dessa vez... :(',
+                        'error'
+                    )
+                }
+            })
+
+        } catch (error) {
+
+        }
+
     }
 }

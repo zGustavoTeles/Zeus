@@ -70,7 +70,7 @@ export class CadastroDeProdutosComponent implements OnInit {
                     confirmButtonText: 'Sim',
                     cancelButtonText: 'Não',
                     reverseButtons: true
-                }).then((result) => {
+                }).then(async (result) => {
                     if (result.isConfirmed) {
 
                         if (this.categoria === 'Serviços')
@@ -108,7 +108,7 @@ export class CadastroDeProdutosComponent implements OnInit {
 
                         swalWithBootstrapButtons.fire(
                             'Parabéns!',
-                            'Produto Cadastrado com Sucesso!',
+                            'Produto Cadastrado com Sucesso! :)',
                             'success'
                         )
                     } else if (
@@ -117,7 +117,7 @@ export class CadastroDeProdutosComponent implements OnInit {
                     ) {
                         swalWithBootstrapButtons.fire(
                             'Oops...',
-                            'Não foi dessa vez)',
+                            'Não foi dessa vez... :(',
                             'error'
                         )
                     }
@@ -130,7 +130,7 @@ export class CadastroDeProdutosComponent implements OnInit {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Algo deu errado! tente preencher todas as linhas...',
+                text: 'Algo deu errado! tente preencher todas as linhas... :(',
                 footer: '<a href="">Why do I have this issue?</a>'
             })
 

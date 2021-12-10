@@ -28,6 +28,12 @@ export class FirebaseService {
             .valueChanges();
     }
 
+    findAllFormasPagamento() {
+        return this.firestore
+            .collection("Zeus " + "_Formas_De_Pagamento", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
     async registerProduct(dados: any): Promise<any> {
         const promise = new Promise(async (resolve, reject) => {
             try {
@@ -51,8 +57,35 @@ export class FirebaseService {
         });
     }
 
+    async registerProductCarrinhoTemp(dados: any): Promise<any> {
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                this.firestore.collection("Zeus " + "_Carrinho_Temp").add(dados).then(async data => {
+                    let dadosProdutos =
+                        [{
+                            "documento": data.id
+                        }];
+                    this.updateProductCarrinhoTemp(data.id, dadosProdutos[0]);
+                    resolve(data.id);
+                }, err => {
+                    reject(err);
+                    console.log('Erro', err);
+                });
+            } catch (err) {
+
+            }
+        });
+        return promise.then(res => {
+            console.log('Retorno ', res);
+        });
+    }
+
     async updateProducts(documento: any, dados: any) {
         this.firestore.doc('Zeus ' + '_Produtos' + '/' + documento).update(dados);
+    }
+
+    async updateProductCarrinhoTemp(documento: any, dados: any) {
+        this.firestore.doc('Zeus ' + '' + '/' + documento).update(dados);
     }
 
 
